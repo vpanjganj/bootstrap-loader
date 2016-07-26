@@ -5,12 +5,15 @@ import semver from 'semver';
 // For Node <= v0.12.x Babel polyfill is required
 if (semver.lt(process.version, '4.0.0') && !global._babelPolyfill) {
   try {
+    // eslint-disable-next-line global-require
     require('babel-polyfill');
   } catch (e) {
     try {
+      // eslint-disable-next-line global-require
       require('babel-core/polyfill');
     } catch (ee) {
       try {
+        // eslint-disable-next-line global-require
         require('babel/polyfill');
       } catch (eee) {
         throw new Error(`
@@ -66,7 +69,7 @@ module.exports.pitch = function(source) {
 
   global.__DEBUG__ = loglevel === 'debug' || process.env.DEBUG === '*';
 
-  logger.debug(`Hey, we're in DEBUG mode! Yabba dabba doo!`);
+  logger.debug('Hey, we\'re in DEBUG mode! Yabba dabba doo!');
 
   logger.debug('Query from webpack config:', this.query || '*none*');
 
@@ -94,6 +97,11 @@ module.exports.pitch = function(source) {
       Make sure it's installed in your 'node_modules/' directory.
     `);
   }
+  
+  const bootstrapRelPath = path.relative(this.context, bootstrapPath);
+
+  logger.debug('Bootstrap module location (abs):', bootstrapPath);
+  logger.debug('Bootstrap module location (rel):', bootstrapRelPath);
 
   const bootstrapNPMVersion = (
     checkBootstrapVersion(bootstrapVersion, config.bootstrapPath)
@@ -139,14 +147,14 @@ module.exports.pitch = function(source) {
       joinLoaders(styleLoadersWithSourceMapsAndResolveUrlLoader)
     );
     const bootstrapStylesLoader = (
-      loaderUtils.urlToRequest(
+      `${loaderUtils.urlToRequest(
         path.relative(
           this.context,
           require.resolve(
             loaderUtils.urlToRequest('bootstrap.styles.loader.js')
           )
         )
-      ) + '!'
+      )}!`
     );
     const styles = styleLoaders + bootstrapStylesLoader + dummySourceRel;
 
@@ -156,14 +164,14 @@ module.exports.pitch = function(source) {
   // Handle scripts
   if (config.scripts) {
     const bootstrapScriptsLoader = (
-      loaderUtils.urlToRequest(
+      `${loaderUtils.urlToRequest(
         path.relative(
           this.context,
           require.resolve(
             loaderUtils.urlToRequest('bootstrap.scripts.loader.js')
           )
         )
-      ) + '!'
+      )}!`
     );
     const scripts = bootstrapScriptsLoader + dummySourceRel;
 
@@ -172,7 +180,7 @@ module.exports.pitch = function(source) {
 
   const resultOutput = (
     result
-      .map(loader => loader + '\n')
+      .map(loader => `${loader}\n`)
       .join('')
   );
 
