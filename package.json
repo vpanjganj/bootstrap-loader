@@ -50,7 +50,7 @@
     "loader-utils": "^0.2.11",
     "resolve": "^1.1.6",
     "semver": "^5.0.3",
-    "strip-json-comments": "^1.0.4"
+    "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
     "babel": "^6.0.15",
@@ -59,7 +59,7 @@
     "babel-tape-runner": "^2.0.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
-    "eslint": "^2.0.0",
+    "eslint": "^3.1.1",
     "eslint-config-shakacode": "^5.0.0",
     "eslint-plugin-import": "^1.12.0"
   }
