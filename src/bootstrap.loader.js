@@ -83,10 +83,10 @@ module.exports.pitch = function(source) {
   logger.debug('Using Bootstrap module:', bootstrapNPMModule);
 
   config.bootstrapPath = resolveModule(bootstrapNPMModule);
-  logger.debug(`Bootstrap module location (abs):`, config.bootstrapPath);
+  logger.debug('Bootstrap module location (abs):', config.bootstrapPath);
 
   config.bootstrapRelPath = path.relative(this.context, config.bootstrapPath);
-  logger.debug(`Bootstrap module location (rel):`, config.bootstrapRelPath);
+  logger.debug('Bootstrap module location (rel):', config.bootstrapRelPath);
 
   logger.debug('Context:', this.context);
   logger.debug('Using Bootstrap version:', bootstrapVersion);
@@ -97,11 +97,6 @@ module.exports.pitch = function(source) {
       Make sure it's installed in your 'node_modules/' directory.
     `);
   }
-  
-  const bootstrapRelPath = path.relative(this.context, bootstrapPath);
-
-  logger.debug('Bootstrap module location (abs):', bootstrapPath);
-  logger.debug('Bootstrap module location (rel):', bootstrapRelPath);
 
   const bootstrapNPMVersion = (
     checkBootstrapVersion(bootstrapVersion, config.bootstrapPath)
